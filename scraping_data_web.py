@@ -3,8 +3,10 @@ This script will extract files from pages provided
 """
 
 # Standar library imports
+import os
 import pandas as pd
 import requests
+import datetime
 from requests.exceptions import HTTPError
 from bs4 import BeautifulSoup
 from decouple import config
@@ -20,6 +22,8 @@ def find_url_csv(url: str):
     """
     This function receive the url
     where csv files will be downloaded.
+    
+    @param: url of the page where is located the csv file
     """
     try: 
         response = requests.get(url)
@@ -39,12 +43,38 @@ def find_url_csv(url: str):
     return tag.attrs["href"] 
     
         
-def download_csv(url):
+def download_csv(category, url):
+    """
+    This function takes the csv's url
+    and prepare the file to be downloaded
+    
+    @param: category of the file will be downloaded
+    
+    @param: url of the csv file
+    """  
+    # Dates      
+    year = datetime.datetime.now().year
+    month = datetime.datetime.now()
+    day = datetime.datetime.now().day
+    
+    # Building path
+    path = f"{category}" 
+    if not os.path.exists(path):
+        os.mkdir(path)
+    
+    path = os.path.join(path, f"{year}-{month.strftime('%B')}")
+    if not os.path.exists(path):
+        os.mkdir(path)        
+    
     try: 
         response = requests.get(url)
         if response.ok:
             logger.info("Connection status: Ok")
-            with open("")
+            
+            with open(
+                os.path.join(path, f"{category}-{day}-{month.month}-{year}"), "wb"
+            ) as f:
+                f.write(response.content)                      
         else:
             logger.error("Connection status: Fail")
     except HTTPError as http_error: 
@@ -53,8 +83,12 @@ def download_csv(url):
         logger.error(f"{ex}") 
     
 
-
-
-
 if __name__ == '__main__':
-    find_url_csv("https://datos.gob.ar/dataset/cultura-mapa-cultural-espacios-culturales/archivo/cultura_4207def0-2ff7-41d5-9095-d42ae8207a5d")
+    # Setting categories
+    categories = ["MUSEOS", "BIBLIOTECAS", "CINES"]
+    
+    for i in categories:
+        url = find_url_csv(config(i))
+        download_csv(i.lower(), url)
+    
+    
