@@ -27,9 +27,7 @@ def find_url_csv(url: str):
     """
     try: 
         response = requests.get(url)
-        if response.ok:
-            logger.info("Connection status: Ok")
-        else:
+        if not response.ok:
             logger.error("Connection status: Fail")
     except HTTPError as http_error: 
         logger.critical(f"{http_error}")
@@ -81,14 +79,22 @@ def download_csv(category, url):
         logger.critical(f"{http_error}")
     except Exception as ex:
         logger.error(f"{ex}") 
+        
+     # Setting categories
+    
+    
+def main():  
+    """
+    This function execute the functions
+    created above.
+    """
+    categories = ["MUSEOS", "BIBLIOTECAS", "CINES"]  
+    for i in categories:
+        url = find_url_csv(config(i))
+        download_csv(i.lower(), url)    
     
 
 if __name__ == '__main__':
     # Setting categories
-    categories = ["MUSEOS", "BIBLIOTECAS", "CINES"]
-    
-    for i in categories:
-        url = find_url_csv(config(i))
-        download_csv(i.lower(), url)
-    
+    main()
     
