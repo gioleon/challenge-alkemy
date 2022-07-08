@@ -27,8 +27,10 @@ def find_url_csv(url: str):
     """
     try: 
         response = requests.get(url)
-        if not response.ok:
-            logger.error("Connection status: Fail")
+        if response.ok:
+            logger.info("Connection status to the current page: Ok")
+        else:
+            logger.error("Connection status to the current page: Fail")    
     except HTTPError as http_error: 
         logger.critical(f"{http_error}")
     except Exception as ex:
@@ -67,14 +69,15 @@ def download_csv(category, url):
     try: 
         response = requests.get(url)
         if response.ok:
-            logger.info("Connection status: Ok")
-            
             with open(
-                os.path.join(path, f"{category}-{day}-{month.month}-{year}"), "wb"
+                os.path.join(path, f"{category}-{day}-{month.month}-{year}"), 
+                "wb"
             ) as f:
-                f.write(response.content)                      
+                f.write(response.content) 
+                
+            logger.info(f"{category} information download status: Success")                     
         else:
-            logger.error("Connection status: Fail")
+            logger.error(f"{category} information download status: Fail") 
     except HTTPError as http_error: 
         logger.critical(f"{http_error}")
     except Exception as ex:
@@ -96,5 +99,7 @@ def main():
 
 if __name__ == '__main__':
     # Setting categories
+    logger.info("Program started")
     main()
+    logger.info("Program finished")
     
