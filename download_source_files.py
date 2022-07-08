@@ -86,20 +86,20 @@ def download_csv(category, url):
      # Setting categories
     
     
-def main():  
+def main_download_source_files():  
     """
     This function execute the functions
     created above.
     """
+    logger.info("The execution of download_source_files.py started")
+
     categories = ["MUSEOS", "BIBLIOTECAS", "CINES"]  
     for i in categories:
         url = find_url_csv(config(i))
         download_csv(i.lower(), url)    
     
+    logger.info("The execution of download_source_files.py finished")
 
 if __name__ == '__main__':
-    # Setting categories
-    logger.info("Program started")
-    main()
-    logger.info("Program finished")
+    main_download_source_files()
     

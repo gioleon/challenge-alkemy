@@ -4,6 +4,7 @@ This script takes a csv file and normalize its content
 import re
 import os
 import pandas as pd
+import numpy as np
 from decouple import config
 
 from loggings import set_up_loggin
@@ -89,11 +90,70 @@ def get_col_of_insterest(df: pd.DataFrame):
 
 
 def clean_columns(df: pd.DataFrame): 
-    pass
-
-     
-if __name__ == '__main__':
-    # Finding path
+    """
+    This function takes a dataframe object
+    and apply some methods in orden to standarize data.
+    (string to lower case, no stress vowels, managment of missing values)
+    
+    @params : dataframe object
+    
+    @return : dataframe object with processed data.
+    """
+    stress_vowels = {
+        "á": "a", "é": "e",
+        "í": "i", "ó": "o",
+        "ú": "u"
+    } 
+    
+    # Columns with strings
+    cols = [
+        "categoria", "provincia", 
+        "localidad", "nombre", 
+        "domicilio", "mail", 
+        "web"
+    ]
+    
+    # Replacing stress vowels
+    df[cols] = df[cols].apply(lambda x: x.str.lower())
+    for key, value in stress_vowels.items():
+        for col in cols:
+            df[col] = df[col].apply(lambda x: re.sub(key, value, str(x)))
+            
+    # Treating missing values
+    cols_missing = df[(df.isnull().sum() > 0).index].columns
+    """
+    Giving a look at the columns i realized 
+    that there are some missing values (nan) present there; 
+    however, there are some words that also represent
+    missing values (sin direccion, s/n), so, let's unify them. 
+    """
+    df[cols_missing] = df[cols_missing].replace("sin direccion", np.nan)
+    df[cols_missing] = df[cols_missing].fillna("s/n")
+    
+    # deleting spaces within phone numbers
+    df["numero_de_telefono"] = df["numero_de_telefono"].apply(
+        lambda x: re.sub(" ", "", str(x))
+    )
+    
+    # Changing dtype of columns
+    cols_type = df.select_dtypes("object").columns
+    df[cols_type] = df[cols_type].astype("string")
+    
+    df[["categoria", "provincia", "localidad"]] = df[[
+        "categoria", 
+        "provincia", 
+        "localidad"
+    ]].astype("category")
+    
+    return df
+    
+        
+def main_data_processing(): 
+    """
+    This function executed all functions created above.
+    """
+    logger.info("The execution of data_processing.py started")
+    
     complete_path = find_files()
     
     dfs = [] # List of dataframes object with the columns of interest
@@ -103,5 +163,13 @@ if __name__ == '__main__':
     
     # concatening dataframes    
     final_df = pd.concat([dfs[0], dfs[1]], ignore_index=True)
-    final_df = pd.concat([final_df, dfs[2]], ignore_index=True)
-  
+    final_df = pd.concat([final_df, dfs[2]], ignore_index=True)   
+    
+    final_df = clean_columns(final_df)
+            
+    logger.info("The execution of data_processing.py finished")
+    
+     
+if __name__ == '__main__':
+    main_data_processing()
+    
