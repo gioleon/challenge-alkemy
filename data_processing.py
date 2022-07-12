@@ -5,6 +5,7 @@ import re
 import os
 import pandas as pd
 import numpy as np
+import datetime
 from decouple import config
 
 from loggings import set_up_loggin
@@ -128,7 +129,9 @@ def clean_columns(df: pd.DataFrame):
     missing values (sin direccion, s/n), so, let's unify them. 
     """
     df[cols_missing] = df[cols_missing].replace("sin direccion", np.nan)
-    df[cols_missing] = df[cols_missing].fillna("s/n")
+    df[cols_missing] = df[cols_missing].replace("s/d", np.nan)
+    df[cols_missing] = df[cols_missing].replace("s/n", np.nan)
+    df[cols_missing] = df[cols_missing].replace("nan", np.nan)
     
     # deleting spaces within phone numbers
     df["numero_de_telefono"] = df["numero_de_telefono"].apply(
@@ -136,14 +139,20 @@ def clean_columns(df: pd.DataFrame):
     )
     
     # Changing dtype of columns
-    cols_type = df.select_dtypes("object").columns
-    df[cols_type] = df[cols_type].astype("string")
+    # cols_type = df.select_dtypes("object").columns
+    # df[cols_type] = df[cols_type].astype("string")
     
     df[["categoria", "provincia", "localidad"]] = df[[
         "categoria", 
         "provincia", 
         "localidad"
     ]].astype("category")
+    
+    df[["cod_localidad", "id_provincia", "id_departamento"]] = df[[
+        "cod_localidad", "id_provincia", "id_departamento"
+    ]].astype("string")
+    
+    df["fecha_carga"] = datetime.datetime.now()
     
     return df
     
@@ -166,9 +175,11 @@ def main_data_processing():
     final_df = pd.concat([final_df, dfs[2]], ignore_index=True)   
     
     final_df = clean_columns(final_df)
-            
+        
     logger.info("The execution of data_processing.py finished")
     
+    return final_df
+     
      
 if __name__ == '__main__':
     main_data_processing()

@@ -181,3 +181,95 @@
 2022-07-08 15:49:22,611 logger          INFO     Search for the most recent files of interest started
 2022-07-08 15:49:22,612 logger          INFO     Path of the most recent files found
 2022-07-08 15:49:23,016 logger          INFO     The execution of data_processing.py finished
+2022-07-09 17:38:02,339 logger          INFO     The execution of data_processing.py started
+2022-07-09 17:38:02,379 logger          INFO     Search for the most recent files of interest started
+2022-07-09 17:38:02,379 logger          INFO     Path of the most recent files found
+2022-07-09 17:38:02,830 logger          INFO     The execution of data_processing.py finished
+2022-07-09 17:39:04,874 logger          INFO     The execution of data_processing.py started
+2022-07-09 17:39:04,874 logger          INFO     Search for the most recent files of interest started
+2022-07-09 17:39:04,874 logger          INFO     Path of the most recent files found
+2022-07-09 17:39:05,210 logger          INFO     The execution of data_processing.py finished
+2022-07-09 17:40:11,772 logger          INFO     The execution of data_processing.py started
+2022-07-09 17:40:11,772 logger          INFO     Search for the most recent files of interest started
+2022-07-09 17:40:11,773 logger          INFO     Path of the most recent files found
+2022-07-09 17:40:12,001 logger          INFO     The execution of data_processing.py finished
+2022-07-09 17:40:15,819 logger          INFO     The execution of data_processing.py started
+2022-07-09 17:40:15,819 logger          INFO     Search for the most recent files of interest started
+2022-07-09 17:40:15,819 logger          INFO     Path of the most recent files found
+2022-07-09 17:40:16,039 logger          INFO     The execution of data_processing.py finished
+2022-07-09 17:40:49,990 logger          INFO     The execution of data_processing.py started
+2022-07-09 17:40:49,990 logger          INFO     Search for the most recent files of interest started
+2022-07-09 17:40:49,990 logger          INFO     Path of the most recent files found
+2022-07-09 17:40:50,284 logger          INFO     The execution of data_processing.py finished
+2022-07-09 17:41:38,414 logger          INFO     The execution of data_processing.py started
+2022-07-09 17:41:38,414 logger          INFO     Search for the most recent files of interest started
+2022-07-09 17:41:38,415 logger          INFO     Path of the most recent files found
+2022-07-09 17:41:38,620 logger          INFO     The execution of data_processing.py finished
+2022-07-09 17:42:16,419 logger          INFO     The execution of data_processing.py started
+2022-07-09 17:42:16,419 logger          INFO     Search for the most recent files of interest started
+2022-07-09 17:42:16,419 logger          INFO     Path of the most recent files found
+2022-07-09 17:42:16,655 logger          INFO     The execution of data_processing.py finished
+2022-07-09 17:42:34,661 logger          INFO     The execution of data_processing.py started
+2022-07-09 17:42:34,661 logger          INFO     Search for the most recent files of interest started
+2022-07-09 17:42:34,661 logger          INFO     Path of the most recent files found
+2022-07-09 17:42:34,847 logger          INFO     The execution of data_processing.py finished
+2022-07-09 17:42:44,377 logger          INFO     The execution of data_processing.py started
+2022-07-09 17:42:44,378 logger          INFO     Search for the most recent files of interest started
+2022-07-09 17:42:44,378 logger          INFO     Path of the most recent files found
+2022-07-09 17:42:44,583 logger          INFO     The execution of data_processing.py finished
+2022-07-09 17:42:59,804 logger          INFO     The execution of data_processing.py started
+2022-07-09 17:42:59,804 logger          INFO     Search for the most recent files of interest started
+2022-07-09 17:42:59,804 logger          INFO     Path of the most recent files found
+2022-07-09 17:43:00,252 logger          INFO     The execution of data_processing.py finished
+2022-07-09 17:44:21,315 logger          INFO     The execution of data_processing.py started
+2022-07-09 17:44:21,315 logger          INFO     Search for the most recent files of interest started
+2022-07-09 17:44:21,316 logger          INFO     Path of the most recent files found
+2022-07-09 17:44:21,584 logger          INFO     The execution of data_processing.py finished
+2022-07-09 17:45:13,625 logger          INFO     The execution of data_processing.py started
+2022-07-09 17:45:13,625 logger          INFO     Search for the most recent files of interest started
+2022-07-09 17:45:13,626 logger          INFO     Path of the most recent files found
+2022-07-09 17:45:13,868 logger          INFO     The execution of data_processing.py finished
+2022-07-09 17:45:48,486 logger          INFO     The execution of data_processing.py started
+2022-07-09 17:45:48,486 logger          INFO     Search for the most recent files of interest started
+2022-07-09 17:45:48,486 logger          INFO     Path of the most recent files found
+2022-07-09 17:45:48,737 logger          INFO     The execution of data_processing.py finished
+2022-07-11 22:53:14,996 logger          INFO     The execution of data_processing.py started
+2022-07-11 22:53:15,015 logger          INFO     Search for the most recent files of interest started
+2022-07-11 22:53:15,022 logger          INFO     Path of the most recent files found
+2022-07-11 22:53:16,684 logger          INFO     The execution of data_processing.py finished
+2022-07-11 22:53:54,853 logger          INFO     The execution of data_processing.py started
+2022-07-11 22:53:54,853 logger          INFO     Search for the most recent files of interest started
+2022-07-11 22:53:54,853 logger          INFO     Path of the most recent files found
+2022-07-11 22:53:55,550 logger          INFO     The execution of data_processing.py finished
+2022-07-11 23:00:10,589 logger          INFO     The execution of data_processing.py started
+2022-07-11 23:00:10,627 logger          INFO     Search for the most recent files of interest started
+2022-07-11 23:00:10,627 logger          INFO     Path of the most recent files found
+2022-07-11 23:00:11,425 logger          INFO     The execution of data_processing.py finished
+2022-07-11 23:02:05,833 logger          INFO     The execution of data_processing.py started
+2022-07-11 23:02:05,833 logger          INFO     Search for the most recent files of interest started
+2022-07-11 23:02:05,833 logger          INFO     Path of the most recent files found
+2022-07-11 23:02:06,118 logger          INFO     The execution of data_processing.py finished
+2022-07-11 23:02:32,328 logger          INFO     The execution of data_processing.py started
+2022-07-11 23:02:32,328 logger          INFO     Search for the most recent files of interest started
+2022-07-11 23:02:32,328 logger          INFO     Path of the most recent files found
+2022-07-11 23:02:32,682 logger          INFO     The execution of data_processing.py finished
+2022-07-11 23:03:00,045 logger          INFO     The execution of data_processing.py started
+2022-07-11 23:03:00,045 logger          INFO     Search for the most recent files of interest started
+2022-07-11 23:03:00,045 logger          INFO     Path of the most recent files found
+2022-07-11 23:03:00,281 logger          INFO     The execution of data_processing.py finished
+2022-07-11 23:09:31,639 logger          INFO     The execution of data_processing.py started
+2022-07-11 23:09:31,639 logger          INFO     Search for the most recent files of interest started
+2022-07-11 23:09:31,640 logger          INFO     Path of the most recent files found
+2022-07-11 23:09:32,434 logger          INFO     The execution of data_processing.py finished
+2022-07-11 23:17:13,120 logger          INFO     The execution of data_processing.py started
+2022-07-11 23:17:13,120 logger          INFO     Search for the most recent files of interest started
+2022-07-11 23:17:13,120 logger          INFO     Path of the most recent files found
+2022-07-11 23:17:13,402 logger          INFO     The execution of data_processing.py finished
+2022-07-11 23:17:58,885 logger          INFO     The execution of data_processing.py started
+2022-07-11 23:17:58,885 logger          INFO     Search for the most recent files of interest started
+2022-07-11 23:17:58,885 logger          INFO     Path of the most recent files found
+2022-07-11 23:17:59,142 logger          INFO     The execution of data_processing.py finished
+2022-07-11 23:19:04,562 logger          INFO     The execution of data_processing.py started
+2022-07-11 23:19:04,562 logger          INFO     Search for the most recent files of interest started
+2022-07-11 23:19:04,563 logger          INFO     Path of the most recent files found
+2022-07-11 23:19:04,943 logger          INFO     The execution of data_processing.py finished
