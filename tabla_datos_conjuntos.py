@@ -8,12 +8,25 @@ import pandas as pd
 import numpy as np
 import datetime
 from decouple import config
-from connection import get_engine
+from connection import get_engine, get_session
+from sqlalchemy.sql import text
+from sqlalchemy import exc
 
 from loggings import set_up_loggin
 
 # Logger
 logger = set_up_loggin(config("FILE_LOGGER_NAME"))
+
+# engine
+engine = get_engine(
+        config("USER"), 
+        config("PASSWORD"), 
+        config("HOST"), 
+        config("DB_NAME")
+    )
+
+# session
+session = get_session()
 
 
 def find_files():
@@ -26,18 +39,22 @@ def find_files():
     
     # Defining path
     folders = ["museos", "cines", "bibliotecas"] # Main folder
-     
     subfolder = [] # subfolder
-    subfolder.append(os.listdir("museos")[-1])
-    subfolder.append(os.listdir("cines")[-1])
-    subfolder.append(os.listdir("bibliotecas")[-1])
-    
     files = [] # CSV files
-    for i in range(3):
-        path = folders[i]
-        path = os.path.join(path, subfolder[i])
-        files.append(os.listdir(path)[-1])
-        
+    
+    try: 
+        subfolder.append(os.listdir("museos")[-1])
+        subfolder.append(os.listdir("cines")[-1])
+        subfolder.append(os.listdir("bibliotecas")[-1])
+    
+    
+        for i in range(3):
+            path = folders[i]
+            path = os.path.join(path, subfolder[i])
+            files.append(os.listdir(path)[-1])
+    except Exception as ex:
+        logger.error(f"{ex} im tabla_datos_conjuntos,py")    
+    
     complete_path = []
     for i in range(3):
         complete_path.append(os.path.join(folders[i], subfolder[i], files[i]))
@@ -171,8 +188,10 @@ def build_final_df():
     dfs = [] # List of dataframes object with the columns of interest
     for i in complete_path:
         # It create a filtered dataframe 
-        dfs.append(get_col_of_insterest(pd.read_csv(i))) 
-    
+        try:
+            dfs.append(get_col_of_insterest(pd.read_csv(i))) 
+        except Exception as ex:
+            logger.error(f"{ex} in tabla_datos_conjuntos.py")
     # concatening dataframes    
     final_df = pd.concat([dfs[0], dfs[1]], ignore_index=True)
     final_df = pd.concat([final_df, dfs[2]], ignore_index=True)   
@@ -187,13 +206,7 @@ def insert_datosconjuntos():
     This function insert information from
     pandas dataframe to sql table
     """
-    engine = get_engine(
-        config("USER"), 
-        config("PASSWORD"), 
-        config("HOST"), 
-        config("DB_NAME")
-    )
-    
+      
     datos_conjuntos = build_final_df()
     
     datos_conjuntos.to_sql(
@@ -203,6 +216,44 @@ def insert_datosconjuntos():
         index = False
     )
     
+    
+def quantity_records_category():
+    """
+    This function execute a query to 
+    show the quantity of records are per
+    category
+    """
+    
+    with engine.connect() as con:
+        try:
+            with open("sql_scripts/cantidadxcategoria.sql") as file:
+                query = text(file.read())
+                result = con.execute(query)
+            
+            for i in result:
+                print(list(i))
+        except exc.SQLAlchemyError as alche_error:
+            logger.error(f"{alche_error} in tabla_datos_comjuntos") 
+            
+def quantity_records_province_category():
+    """
+    This function execute a query to 
+    show the quantity of records are per
+    province and category
+    """
+    "sql_scripts/cantidadxprovinciaycategorias.sql"
+    
+    with engine.connect() as con:
+        try:
+            with open( "sql_scripts/cantidadxprovinciaycategorias.sql") as file:
+                query = text(file.read())
+                result = con.execute(query)
+            
+            for i in result:
+                print(list(i))
+        except exc.SQLAlchemyError as alche_error:
+            logger.error(f"{alche_error} in tabla_datos_comjuntos")  
+        
 
 def main_tabla_datos_conjuntos():
     """

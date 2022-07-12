@@ -13,16 +13,28 @@ from connection import get_engine
 
 from loggings import set_up_loggin
 
+# logger
 logger = set_up_loggin(config("FILE_LOGGER_NAME"))
+
+# engine
+engine = get_engine(
+        config("USER"), 
+        config("PASSWORD"), 
+        config("HOST"), 
+        config("DB_NAME")
+    )
 
 
 def find_file():
     folder = "cines"
-    subfolder = os.listdir("cines")[-1]
-    file = os.listdir(
-        os.path.join(folder, subfolder)
-    )[-1]
-    
+    try: 
+        subfolder = os.listdir("cines")[-1]
+        file = os.listdir(
+            os.path.join(folder, subfolder)
+        )[-1]
+    except Exception as ex:
+        logger.error(f"{ex} in tabla_cines.py")
+        
     return os.path.join(
         folder, subfolder, file
     )
@@ -41,8 +53,11 @@ def clean_data():
     
     cols_interes = ["Provincia", "Pantallas", "Butacas", "espacio_INCAA"]
     
-    df = pd.read_csv(find_file(), encoding="UTF-8")
-    
+    try:
+        df = pd.read_csv(find_file(), encoding="UTF-8")
+    except Exception as ex:
+        logger.error(f"{ex} im tabla_cines.py")
+        
     # lower case
     df["Provincia"] = df["Provincia"].apply(str.lower)
     df["espacio_INCAA"] = df["espacio_INCAA"].apply(
@@ -55,21 +70,18 @@ def clean_data():
             lambda x: re.sub(key, value, str(x))
         )
     
+    # encoding espacio_incaa values
     df["espacio_INCAA"] = df["espacio_INCAA"].replace(
         {"nan": 0, "si": 1, "0": 0}
     )
         
-    return df[cols_interes].groupby("Provincia").sum().reindex()
+    return df[cols_interes].groupby("Provincia").sum().reset_index()
     
 
 def insert_datoscines():
-    engine = get_engine(
-        config("USER"), 
-        config("PASSWORD"), 
-        config("HOST"), 
-        config("DB_NAME")
-    )
-        
+    """
+    This function insert data into datoscines table
+    """
     df = clean_data()
     
     df.to_sql(
