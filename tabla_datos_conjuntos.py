@@ -226,14 +226,19 @@ def quantity_records_category():
     
     with engine.connect() as con:
         try:
-            with open("sql_scripts/cantidadxcategoria.sql") as file:
+            with open("sql_scripts/query_cantidadxcategoria.sql") as file:
                 query = text(file.read())
                 result = con.execute(query)
-            
-            for i in result:
-                print(list(i))
         except exc.SQLAlchemyError as alche_error:
             logger.error(f"{alche_error} in tabla_datos_comjuntos") 
+       
+    pd.DataFrame(result).to_sql(
+        "cantidadxcategorias",
+        con = engine,
+        if_exists ="replace",
+        index = False
+    )    
+       
             
 def quantity_records_province_category():
     """
@@ -245,14 +250,18 @@ def quantity_records_province_category():
     
     with engine.connect() as con:
         try:
-            with open( "sql_scripts/cantidadxprovinciaycategorias.sql") as file:
+            with open( "sql_scripts/query_cantidadxprovinciaycategorias.sql") as file:
                 query = text(file.read())
-                result = con.execute(query)
-            
-            for i in result:
-                print(list(i))
+                result = con.execute(query)    
         except exc.SQLAlchemyError as alche_error:
             logger.error(f"{alche_error} in tabla_datos_comjuntos")  
+    
+    pd.DataFrame(result).to_sql(
+        "cantidadxprovinciaycategorias",
+        con = engine,
+        if_exists ="replace",
+        index = False
+    )
         
 
 def main_tabla_datos_conjuntos():
