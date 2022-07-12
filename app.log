@@ -273,3 +273,11 @@
 2022-07-11 23:19:04,562 logger          INFO     Search for the most recent files of interest started
 2022-07-11 23:19:04,563 logger          INFO     Path of the most recent files found
 2022-07-11 23:19:04,943 logger          INFO     The execution of data_processing.py finished
+2022-07-12 09:51:22,296 logger          INFO     The execution of data_processing.py started
+2022-07-12 09:51:22,296 logger          INFO     Search for the most recent files of interest started
+2022-07-12 09:51:22,296 logger          INFO     Path of the most recent files found
+2022-07-12 09:51:23,616 logger          INFO     The execution of data_processing.py finished
+2022-07-12 09:55:11,021 logger          INFO     The execution of data_processing.py started
+2022-07-12 09:55:11,021 logger          INFO     Search for the most recent files of interest started
+2022-07-12 09:55:11,021 logger          INFO     Path of the most recent files found
+2022-07-12 09:55:11,443 logger          INFO     The execution of data_processing.py finished
