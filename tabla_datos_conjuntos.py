@@ -1,5 +1,6 @@
 """
-This script takes a csv file and normalize its content
+This script takes a csv, process the data
+and then insert that data into dataconjuntos table
 """
 import re
 import os
@@ -7,6 +8,7 @@ import pandas as pd
 import numpy as np
 import datetime
 from decouple import config
+from connection import get_engine
 
 from loggings import set_up_loggin
 
@@ -157,11 +159,12 @@ def clean_columns(df: pd.DataFrame):
     return df
     
         
-def main_data_processing(): 
+def build_final_df(): 
     """
-    This function executed all functions created above.
+    This function builds the final df
+    
+    @return: DataFrame object
     """
-    logger.info("The execution of data_processing.py started")
     
     complete_path = find_files()
     
@@ -175,12 +178,43 @@ def main_data_processing():
     final_df = pd.concat([final_df, dfs[2]], ignore_index=True)   
     
     final_df = clean_columns(final_df)
-        
-    logger.info("The execution of data_processing.py finished")
     
     return final_df
-     
-     
+   
+   
+def insert_datosconjuntos():
+    """
+    This function insert information from
+    pandas dataframe to sql table
+    """
+    engine = get_engine(
+        config("USER"), 
+        config("PASSWORD"), 
+        config("HOST"), 
+        config("DB_NAME")
+    )
+    
+    datos_conjuntos = build_final_df()
+    
+    datos_conjuntos.to_sql(
+        "datosconjuntos",
+        con = engine, 
+        if_exists="replace", 
+        index = False
+    )
+    
+
+def main_tabla_datos_conjuntos():
+    """
+    This function executes the complete file.
+    """    
+    logger.info("The execution of tabla_datos_conjuntos.py started")
+    
+    insert_datosconjuntos()
+    
+    logger.info("The execution of tabla_datos_conjuntos.py finished")
+    
+          
 if __name__ == '__main__':
-    main_data_processing()
+    main_tabla_datos_conjuntos()
     

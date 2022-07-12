@@ -1,23 +1,27 @@
-import pandas as pd
-from decouple import config
-from sqlalchemy import create_engine
-from connection import get_engine
-from data_processing import main_data_processing
+"""This script executes all the complete application"""
+
+from tabla_datos_conjuntos import main_tabla_datos_conjuntos
+from tabla_cines import main_tabla_cines
 from sql_execution import create_tables, get_sql_scripts
 
 def main():
-    engine = get_engine(
-        config("USER"), 
-        config("PASSWORD"), 
-        config("HOST"), 
-        config("DB_NAME")
-    )
+    """
+    This function perfoms the logic
+    of the complete application:
+        
+        - Extraction of csv files from pages. 
+        - Processing the data.
+        - Creation of database and tables.
+        - Insertion of data into tables
+    """
     
+    # SQL files execution 
     create_tables(get_sql_scripts())
     
-    # df
-    final_df = main_data_processing()
+    # Insertions
+    main_tabla_datos_conjuntos() # datosconjuntos table
+    main_tabla_cines() # datoscines table
     
-    final_df.to_sql("datosconjuntos", con = engine, if_exists="replace", index = False)
-
-main()    
+    
+if __name__ == '__main__':    
+    main()    
